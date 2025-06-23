@@ -1,0 +1,53 @@
+programa EJ1P2
+procesos
+ proceso juntarF (ES flor:numero)
+    comenzar
+    mientras HayFlorEnLaEsquina
+        tomarFlor
+        flor:=flor+1
+    fin
+ 
+areas
+    ciudad: AreaC (1,1,1,10)
+    ciudad2: AreaC (2,11,2,20)
+robots
+    robot robot1
+     variables
+      f,fdl:numero
+     comenzar 
+     f:=0
+     repetir 10
+        juntarF(f)
+        mover
+     EnviarMensaje (f, robot2)
+     recibirMensaje(fdl, robot2)
+     si (f > fdl )
+      informar (f-fdl)
+     fin
+ 
+    robot robot2
+     variables
+      f,fdl:numero
+     comenzar
+     f:=0 
+     repetir 10
+        juntarF(f)
+        mover
+     EnviarMensaje (f, robot2)
+     recibirMensaje(fdl, robot2)
+     si (f > fdl )
+      informar (f-fdl)
+     fin
+ 
+comenzar
+    
+fin
+variables
+    avuno: robot1
+    avdos: robot2
+comenzar
+    AsignarArea (avuno,ciudad) 
+    Iniciar (avuno,1,1)
+    AsignarArea(avdos, ciudad2)
+    Iniciar (avdos,2,11)
+fin

@@ -1,0 +1,99 @@
+programa nombrePrograma
+procesos
+  proceso juntarF (ES f:numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      f:=f+1
+  fin
+  proceso juntarP (ES p:numero)
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+      p:=p+1
+  fin
+areas
+  ciuF: AreaPC (1,1,5,10)
+  ciuP: AreaPC (6,1,10,9)
+  ciuC : AreaC (6,10,9,10)
+robots
+  robot tipo1F
+  variables
+    av, ca,f, posav, posca:numero
+  comenzar 
+    posav:=PosAv
+    posca:=PosCa
+    repetir 4
+      Random (av,1,5)
+      Random (ca,1,10)
+      BloquearEsquina (av,ca)
+      Pos (av, ca)
+      juntarF (f)   
+      Pos(posav,posca)
+      LiberarEsquina(av,ca)      
+  fin
+  robot tipo2F
+  variables
+    av, ca,f, posav,posca:numero
+  comenzar 
+    posav:=PosAv
+    posca:=PosCa
+    repetir 4
+      Random (av,1,5)
+      Random (ca,1,10)
+      BloquearEsquina (av,ca)
+      Pos (av, ca)
+      juntarF (f)
+      Pos(posav,posca)
+      LiberarEsquina(av,ca)      
+  fin
+  robot tipo1P
+  variables
+    av, ca,p, posav,posca:numero
+  comenzar 
+    posav:=PosAv
+    posca:=PosCa
+    repetir 4
+      Random (av,6,10)
+      Random (ca,1,9)
+      BloquearEsquina (av,ca)
+      Pos (av, ca)
+      juntarP (p)
+      Pos (posav,posca)   
+      LiberarEsquina(av,ca)      
+  fin
+  robot tipo2P
+  variables
+    av,ca,p:numero
+    posav,posca:numero
+  comenzar
+    posav:=PosAv
+    posca:=PosCa 
+    repetir 4
+      Random (av,6,10)
+      Random (ca,1,9)
+      BloquearEsquina (av,ca)
+      Pos (av, ca)
+      juntarP (p)
+      Pos (posav,posca)   
+      LiberarEsquina(av,ca)      
+  fin
+variables
+  florero1:tipo1F
+  florero2:tipo2F
+  papelero1:tipo1P
+  papelero2:tipo2P
+comenzar
+  AsignarArea (florero1,ciuF)
+  AsignarArea (florero1,ciuC)
+  AsignarArea (florero2,ciuF)
+  AsignarArea (florero2,ciuC)
+  AsignarArea (papelero1,ciuP)
+  AsignarArea (papelero1,ciuC)
+  AsignarArea (papelero2,ciuP)
+  AsignarArea (papelero2,ciuC)    
+  Iniciar (florero1, 6,10)
+  Iniciar(florero2, 7,10)
+  Iniciar (papelero1, 8,10)
+  Iniciar (papelero2, 9,10)
+fin

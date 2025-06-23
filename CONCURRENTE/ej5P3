@@ -1,0 +1,82 @@
+programa ej 
+procesos 
+  proceso juntarP (ES p:numero ES ok:boolean) 
+  comenzar 
+    si HayPapelEnLaEsquina 
+      tomarPapel 
+      p:=p+1 
+      ok:=V  
+    sino
+      ok:=F 
+  fin 
+areas 
+  ciudad:AreaC (1,1,100,100) 
+robots 
+  robot competidor 
+  variables 
+    ok:boolean
+    p,id,posav,posca:numero  
+  comenzar
+    p:=0
+    ok:=V
+    RecibirMensaje(id, j)
+    posav:=PosAv
+    posca:=PosCa
+    BloquearEsquina (11,11)
+    Pos (11,11)
+    juntarP(p,ok)
+    Pos (posav,posca)
+    LiberarEsquina(11,11)
+    mover
+    repetir 98
+      mientras (ok=V)
+        BloquearEsquina(11,11)
+        Pos (11,11)
+        juntarP(p, ok)
+        Pos (posav,posca)
+        LiberarEsquina (11,11)
+        si HayFlorEnLaBolsa
+          depositarFlor
+      mover
+      posav:=PosAv
+      posca:=PosCa
+    EnviarMensaje (id, j)
+    EnviarMensaje (ok, j)
+  fin
+  robot jefe 
+  variables
+    id:numero
+    ok:boolean
+  comenzar
+    id:=1
+    EnviarMensaje (id, r1)
+    id:=2
+    EnviarMensaje(id, r2)
+    id:=3
+    EnviarMensaje (id, r3)
+    id:=4
+    EnviarMensaje (id,r4)
+    repetir 4
+      RecibirMensaje (id, *)
+      RecibirMensaje (ok, *)
+      si(ok=F)
+        Informar (id)
+  fin
+variables
+  r1:competidor
+  r2:competidor
+  r3:competidor
+  r4:competidor
+  j:jefe
+comenzar
+  AsignarArea (r1,ciudad)
+  AsignarArea (r2,ciudad)
+  AsignarArea (r3,ciudad)
+  AsignarArea (r4,ciudad)
+  AsignarArea (j,ciudad)
+  Iniciar (r1, 4,1)
+  Iniciar (r2, 6,1)
+  Iniciar (r3, 8,1)
+  Iniciar (r4, 10,1)
+  Iniciar (j, 12,1)
+fin

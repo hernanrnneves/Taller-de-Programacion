@@ -1,0 +1,94 @@
+programa EJ5P5
+procesos
+  proceso colocarPapeles (ES cantPapeles: numero)
+  variables
+    aDepositar: numero
+  comenzar
+    aDepositar:= cantPapeles
+    mientras aDepositar > 0
+      depositarPapel
+      aDepositar:= aDepositar-1
+  fin
+  proceso juntarPapeles (E cantPapeles: numero)
+  comenzar
+    mientras cantPapeles > 0
+      tomarPapel
+      cantPapeles:= cantPapeles-1
+  fin
+  proceso depositarPapeles (E cantPapeles: numero)
+  comenzar
+    mientras cantPapeles > 0
+      depositarPapel
+      cantPapeles:= cantPapeles-1
+  fin
+areas
+  area1: AreaC (100,1,100,1)
+  area2: AreaP (10,1,10,1)
+  area3: AreaP (11,1,11,1)
+  area4: AreaP (12,1,12,1)
+  area5: AreaP (13,1,13,1)
+robots
+  robot servidor
+  variables
+    ok: boolean
+    randomCantPapeles, quienEs: numero
+  comenzar
+    EnviarMensaje (1, cliente1)
+    EnviarMensaje (2, cliente2)
+    EnviarMensaje (3, cliente3)
+    repetir 12
+      Random (randomCantPapeles,1,5)
+      RecibirMensaje (ok, *)
+      RecibirMensaje (quienEs, *)
+      BloquearEsquina (100,1)
+      Pos (100,1)
+      colocarPapeles (randomCantPapeles)
+      Pos (13,1)
+      LiberarEsquina (100,1)
+      si quienEs = 1
+        EnviarMensaje (randomCantPapeles, cliente1)
+      sino
+        si quienEs = 2
+          EnviarMensaje (randomCantPapeles, cliente2)
+        sino
+          EnviarMensaje (randomCantPapeles, cliente3)
+  fin
+  robot cliente
+  variables
+    ok: boolean
+    quienSoy, randomPapeles,PosAvOrig, PosCaOrig: numero
+  comenzar
+    PosAvOrig:= PosAv
+    PosCaOrig:= PosCa
+    RecibirMensaje (quienSoy, servidor)
+    repetir 4 
+      EnviarMensaje (V, servidor)
+      EnviarMensaje (quienSoy, servidor)
+      RecibirMensaje (randomPapeles, servidor)
+      BloquearEsquina (100,1)
+      Pos (100,1)
+      juntarPapeles (randomPapeles)
+      Pos (PosAvOrig, PosCaOrig)
+      LiberarEsquina (100,1)
+      depositarPapeles (randomPapeles)
+    EnviarMensaje (V, servidor)
+  fin
+variables
+  servidor: servidor
+  cliente1: cliente
+  cliente2: cliente
+  cliente3: cliente
+comenzar
+  AsignarArea (cliente1, area1)
+  AsignarArea (cliente2, area1)
+  AsignarArea (cliente3, area1)
+  AsignarArea (servidor, area1)
+  AsignarArea (cliente1, area2)
+  AsignarArea (cliente2, area3)
+  AsignarArea (cliente3, area4)
+  AsignarArea (servidor, area5)
+  Iniciar (cliente1, 10,1)
+  Iniciar (cliente2, 11,1)
+  Iniciar (cliente3, 12,1)
+  Iniciar (servidor, 13,1)
+fin

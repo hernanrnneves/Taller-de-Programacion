@@ -1,0 +1,40 @@
+programa nombrePrograma
+procesos
+proceso recorrer (ES canFlor)
+    comenzar 
+    repetir 99
+        si HayFlorEnLaEsquina
+            JuntarFlor
+            cantFlor:=cantFlor
+        mover
+    fin
+areas
+    ciudad: AreaC (1,1,100,100)
+robots
+    robot robot1
+    variables 
+        flor:numero
+    comenzar 
+        flor:=0
+        recorrer(flor)
+        Informar(flor)     
+    fin
+    robot robot2
+    variables 
+        flor:numero
+    comenzar 
+        flor:=0
+        recorrer(flor)
+        Informar(flor)     
+    fin
+
+variables
+    bicho: robot1
+    bichote:robot2
+comenzar
+    AsignarArea (bicho,ciudad)
+    AsignarArea(bichote,ciudad)
+    Iniciar (bicho,1,1)
+    Iniciar (bichote,1,2)
+fin
+

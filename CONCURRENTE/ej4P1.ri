@@ -1,0 +1,60 @@
+programa eje4P1 
+procesos
+  proceso juntarF (ES flores:numero E calle:numero E avenida:numero)
+  comenzar 
+    repetir calle
+      repetir avenida
+        mientras HayFlorEnLaEsquina
+          tomarFlor
+          Flores:=Flores+1
+        mover
+      mientras HayFlorEnLaEsquina
+        tomarFlor
+        Flores:=Flores+1
+      mover
+  fin
+  proceso juntarP (ES papel:numero E calle:numero E avenida:numero)
+  comenzar 
+    repetir calle
+      repetir avenida 
+        mientras HayPapelEnLaEsquina
+          tomarPapel
+          pepel:=papel+1
+        mover 
+      mientras HayPapelEnLaEsquina 
+        tomarPapel
+        papel:=papel+1
+      mover
+  fin 
+areas
+  area1: AreaC (1,1,25,100)
+  area2: AreaC (26,1,50,100)
+  area3:AreaC (51,1,75,100)
+  area4: AreaC (76,1,100,100)
+robots 
+  robot robot1
+  variables
+    flores:numero
+  comenzar
+    juntarF (flores, 99,25)
+  fin
+  robot robot2
+  variables
+    papel:numero
+  comenzar
+    juntarP(papel,99, 26)
+    juntarP (papel,99, 100) 
+  fin
+variables 
+  impar:robot1 
+  par:robot2
+comenzar 
+  AsignarArea(impar,area1)
+  Iniciar (impar,1,1)
+  AsignarArea(impar, area3)
+  Iniciar (impar, 51,1)
+  AsignarArea (par, area2)
+  Iniciar (par, 26,1)
+  AsignarArea (par, area4)
+  Iniciar (par,76,1)
+fin 

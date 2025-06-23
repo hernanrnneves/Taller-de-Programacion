@@ -1,0 +1,110 @@
+programa ej  
+procesos  
+  proceso juntar (ES f:numero ES p:numero) 
+  comenzar 
+    si HayFlorEnLaEsquina 
+      tomarFLor 
+      f:=f+1 
+    si HayPapelEnLaEsquina 
+      tomarPapel 
+      P:=p+1 
+  fin
+  proceso cuadrado (E lado:numero E base:numero ES f:numero ES p:numero ES ok:boolean )
+  comenzar
+    ok:=F
+    repetir 2 
+      repetir lado 
+        juntar(f,p) 
+        mover 
+      derecha 
+      repetir base  
+        juntar(f,p) 
+        mover 
+      derecha 
+    ok:=V
+  fin 
+areas 
+  ciudad:AreaC (1,1,100,100)    
+robots  
+  robot cuadr 
+  variables
+    f,p,l,b,id,c:numero
+    ok:boolean
+  comenzar 
+    RecibirMensaje (id, j)
+    RecibirMensaje (l,j)
+    RecibirMensaje (b,j)
+    cuadrado (l,b,f,p,ok)
+    EnviarMensaje (id, j)
+    EnviarMensaje (ok,j)
+    RecibirMensaje (c,j)
+    Pos (1,c)
+    mientras (PosCa < 100)
+      si HayFlorEnLaBolsa
+        depositarFlor
+        mover
+      si HayPapelEnLaBolsa
+        depositarPapel
+        mover
+  fin
+  robot jefe 
+  variables
+    n,id:numero
+    ok:boolean
+  comenzar
+    id:=1
+    EnviarMensaje (id,r1)
+    EnviarMensaje(6,r1)
+    EnviarMensaje (6,r1)
+    id:=2 
+    EnviarMensaje (id,r2)
+    EnviarMensaje (10,r2) 
+    EnviarMensaje (10,r2) 
+    id:=3
+    EnviarMensaje (id, r3)
+    EnviarMensaje (7,r3)
+    EnviarMensaje (7,r3)
+    repetir 4
+      RecibirMensaje (id, *)
+      RecibirMensaje (ok, *)
+      si (ok= V)
+        si (id=1)
+          EnviarMensaje (20,r1)
+        sino
+          si(id=2)
+            EnviarMensaje (20,r2)
+          sino 
+            si (id=3)
+              EnviarMensaje(20,r3)
+        si (id=1)
+          EnviarMensaje (21,r1)
+        sino
+          si(id=2)
+            EnviarMensaje (21,r2)
+          sino 
+            si (id=3)
+              EnviarMensaje(21,r3)
+        si (id=1)
+          EnviarMensaje (22,r1)
+        sino
+          si(id=2)
+            EnviarMensaje (22,r2)
+          sino 
+            si (id=3)
+              EnviarMensaje(22,r3)
+  fin
+variables
+  r1:cuadr
+  r2:cuadr
+  r3:cuadr
+  j:jefe
+comenzar 
+  AsignarArea (r1,ciudad)  
+  AsignarArea (r2,ciudad)   
+  AsignarArea (r3,ciudad)  
+  AsignarArea (j,ciudad)   
+  Iniciar (r1, 2,2)  
+  Iniciar (r2, 5,5)   
+  Iniciar (r3, 9,9)   
+  Iniciar (j, 100,100) 
+fin 

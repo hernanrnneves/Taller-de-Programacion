@@ -1,0 +1,95 @@
+programa ej
+procesos 
+  proceso juntarP (ES p:numero)
+  comenzar
+    mientras HayPapelEnLaEsquina
+      tomarPapel
+      p:=p+1 
+  fin
+  proceso juntarTP(E p:numero)
+  comenzar
+    repetir P
+      tomarPapel
+  fin
+  proceso consultar (E p:numero ES ok:boolean)
+  variables 
+    cont:numero
+  comenzar
+    cont:=0
+    ok:=F
+    repetir p 
+      si HayPapelEnLaEsquina
+        tomarPapel
+        cont:=cont+1
+    si cont = p
+      ok:=V
+    sino
+      repetir cont
+        si HayFlorEnLaBolsa
+          depositarPapel
+  fin
+areas
+  dep: AreaC (50,50,50,50)
+  pap: AreaPC (5,1,5,100)
+  pap2:AreaPC (10,1,10,100)
+  cons: AreaPC (11,1,12,1)
+
+robots
+  robot productor
+  variables
+    p, av,ca:numero
+  comenzar
+    p:=0
+    repetir 99
+      juntarP(p)
+      mover
+      si (p = 5)
+        ca:=PosCa
+        av:=PosAv
+        BloquearEsquina(50,50)
+        Pos (50,50)
+        repetir 5
+          si HayPapelEnLaBolsa  
+            depositarPapel
+        p:=0
+        Pos (av,ca)
+        LiberarEsquina(50,50)
+  fin
+  robot consumidores
+  variables
+    p, ca,av,p1,p2,p3,cont:numero
+    ok:boolean
+  comenzar
+    Random(p,2,4)
+    cont:=0
+    ca:=PosCa
+    av:=PosAv
+    repetir 8
+      BloquearEsquina (50,50)
+      Pos (50,50)
+      consultar (p, ok)
+      Pos (av,ca)
+      LiberarEsquina (50,50)
+      si ok=V 
+        mientras HayFlorEnLaBolsa
+          depositarPapel
+  fin 
+variables
+  r1:productor
+  r2:productor
+  c1:consumidores
+  c2:consumidores
+comenzar
+  AsignarArea (r1,pap)
+  AsignarArea (r1,dep)
+  AsignarArea (r2,dep)
+  AsignarArea (r2,pap2)
+  AsignarArea (c1,cons)
+  AsignarArea (c2,cons)
+  AsignarArea (c1,dep)
+  AsignarArea (c2,dep)
+  Iniciar (r1,5,1)
+  Iniciar (r2,10,1)
+  Iniciar (c1,11,1)
+  Iniciar (c2,12,1)  
+fin

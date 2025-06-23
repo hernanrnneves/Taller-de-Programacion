@@ -1,0 +1,97 @@
+programa ej
+procesos
+  proceso juntarf (ES f:numero)
+  comenzar
+    mientras HayFlorEnLaEsquina
+      tomarFlor
+      f:=f+1
+  fin
+  proceso mensaje (E id:numero)
+  comenzar
+    si id=1
+      EnviarMensaje (V,r2)
+      EnviarMensaje (V,r3)
+    sino
+      si id=2
+        EnviarMensaje (V,r1)
+        EnviarMensaje (V,r3)
+      sino
+        EnviarMensaje (V,r2)
+        EnviarMensaje (V,r1)
+  fin
+  proceso lado (ES f:numero)
+  comenzar
+    repetir 5
+      juntarf (f)
+      mover
+  fin
+areas
+  areaT1:AreaP (1,1,6,6)
+  areaT2:AreaP (7,1,12,6)
+  areaT3:AreaP (13,1,18,6)
+  areaCor: AreaP (20,1,20,1)
+  dep:AreaC (10,10,10,10)
+robots
+  robot recolectores
+  variables
+    id,f,ca,av,yo,idmax:numero
+    ok:boolean
+  comenzar
+    RecibirMensaje (id, c)
+    f:=0
+    repetir 4
+      lado (f)
+      mensaje (id)
+      repetir 2
+        RecibirMensaje (ok,*)
+      derecha
+    EnviarMensaje (id, c)
+    EnviarMensaje (f, c)
+    RecibirMensaje (idmax, *)
+    si idmax <> id
+      mientras HayFlorEnLaBolsa
+        av:=PosAv
+        ca:=PosCa
+        BloquearEsquina (10,10)
+        Pos (10,10)
+        depositarFlor
+        Pos (av,ca)
+        LiberarEsquina (10,10)
+  fin 
+  robot coordinador
+  variables
+    id,f,contF,fmax,idmax:numero
+  comenzar
+    EnviarMensaje (1,r1)
+    EnviarMensaje (2,r2)
+    EnviarMensaje (3,r3)
+    fmax:=-1
+    repetir 3 
+      RecibirMensaje (id, *)
+      RecibirMensaje (f, *)
+      si f > fmax
+        fmax:=f
+        idmax:=id
+    Informar (idmax)
+    EnviarMensaje (idmax, r1)
+    EnviarMensaje (idmax,r2)
+    EnviarMensaje (idmax,r3)
+  fin
+variables 
+  r1:recolectores
+  r2:recolectores
+  r3:recolectores
+  c:coordinador
+comenzar
+  AsignarArea (r1,areaT1)
+  AsignarArea(r2, areaT2)
+  AsignarArea(r3,areaT3)
+  AsignarArea(c,areaCor)
+  AsignarArea(r1,dep)
+  AsignarArea(r2,dep)
+  AsignarArea(r3,dep) 
+  Iniciar (r1,1,1)
+  Iniciar (r2,7,1)
+  Iniciar (r3,13,1)
+  Iniciar (c,20,1)
+fin

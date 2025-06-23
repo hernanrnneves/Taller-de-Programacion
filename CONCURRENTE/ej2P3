@@ -1,0 +1,70 @@
+programa nombrePrograma
+procesos
+  proceso juntarF (ES f:numero)
+  comenzar 
+    si HayFlorEnLaEsquina
+      tomarFlor
+      f:=f+1
+  fin
+  proceso juntarP (ES p:numero)
+  comenzar
+    si HayPapelEnLaEsquina
+      tomarPapel
+      p:=p+1
+  fin
+areas
+  ciudad: AreaC (1,1,100,100)
+robots
+  robot robot1
+  variables
+    f:numero
+  comenzar 
+    f:=0
+    repetir 5
+      juntarF (f)
+      mover
+    repetir 3
+      derecha
+    repetir 5
+      juntarF(f)
+      mover
+    derecha
+    repetir 4
+      juntarF (f)
+      mover
+    repetir 3
+      derecha
+    repetir 4
+      juntarF(f)
+      mover
+    derecha
+    repetir  3
+      juntarF(f)
+      mover
+    repetir 3
+      derecha
+    repetir 3
+      juntarF(f)
+      mover
+    derecha
+    repetir 2
+      juntarF(f)
+      mover 
+    repetir 3
+      derecha
+    repetir 2
+      juntarF (f)
+      mover
+  fin
+  robot robot2
+  variables
+ 
+variables
+  der: robot1
+  izq:robot1
+comenzar
+  AsignarArea (der,ciudad)
+  AsignarArea (izq, ciudad)
+  Iniciar (izq, 1,1)
+  Iniciar (der,31,1)
+fin

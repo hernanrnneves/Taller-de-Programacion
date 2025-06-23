@@ -1,0 +1,72 @@
+programa nombrePrograma
+areas
+  ciudad: AreaC (1,1,100,100)
+robots
+  robot robot1
+  variables
+    posav, posca, f,id:numero
+  comenzar
+    posav:=PosAv
+    posca:= PosCa
+    f:=0
+    RecibirMensaje (id, j)
+    BloquearEsquina(10,10)
+    Pos (10,10)
+    si HayFlorEnLaEsquina
+      tomarFlor 
+    sino
+      EnviarMensaje(id, j)
+      EnviarMensaje(V, j)
+    si HayFlorEnLaBolsa 
+      BloquearEsquina(11,11)
+      Pos (11,11)
+      depositarFlor
+      Pos (posav,posca)
+      LiberarEsquina(11,11)
+    LiberarEsquina (10,10)
+  fin
+  robot jefe
+  variables
+    id:numero
+    bool:boolean
+  comenzar
+    id:=1
+    EnviarMensaje(id,r1)
+    id:=2
+    EnviarMensaje(id,r2)
+    id:=3
+    EnviarMensaje(id,r3)
+    id:=4
+    EnviarMensaje(id,r4)
+    repetir 4 
+      RecibirMensaje (id, *) 
+      si (id =1) 
+        RecibirMensaje (bool,r1) 
+      sino 
+        si(id=2) 
+          RecibirMensaje (bool, r2) 
+        sino
+          si (id=3) 
+            RecibirMensaje(bool,r3)
+          sino
+            RecibirMensaje (bool, r4)
+    Informar (id)
+  fin
+variables
+  r1: robot1
+  r2: robot1
+  r3: robot1
+  r4: robot1
+  j:jefe
+comenzar
+  AsignarArea (r1,ciudad)
+  AsignarArea (r2,ciudad)
+  AsignarArea (r3,ciudad)
+  AsignarArea (r4,ciudad)
+  AsignarArea (j,ciudad)
+  Iniciar (j,1,1)
+  Iniciar(r1,9,9)
+  Iniciar(r2,9,10)
+  Iniciar(r3,9,11)
+  Iniciar(r4,9,12)
+fin
